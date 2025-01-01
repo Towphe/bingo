@@ -3,8 +3,106 @@
     <head>
         <title>Bingo</title>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="styles.css" rel="stylesheet" />
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
-        <h1>Bingo Generator</h1>
+    <body
+        class="w-screen h-screen flex flex-col justify-center items-center text-[#333333]"
+        x-data="{ choice: 'none' }"
+    >
+        <!-- Choice Selection -->
+        <div class="shadow-md w-11/12 py-3" x-show="choice == 'none'">
+            <h1 class="text-center text-3xl mb-4">Bingo Generator</h1>
+            <div class="w-11/12 flex justify-around mx-auto">
+                <button
+                    class="block text-center bg-blue-600 text-white px-3 py-1 rounded-md hover:opacity-80"
+                    @click="() => {
+                        choice = 'card';
+                    }"
+                >
+                    Generate Card
+                </button>
+                <button
+                    class="block text-center bg-yellow-600 text-white px-3 py-1 rounded-md hover:opacity-80"
+                    @click="() => {
+                        choice = 'numbers'
+                    }"
+                >
+                    Generate Numbers
+                </button>
+            </div>
+        </div>
+        <!-- Card Generator -->
+        <div class="shadow-md w-screen py-3" x-show="choice == 'card'">
+            <h2 class="text-center text-2xl mb-3 font-medium">
+                Generate Cards
+            </h2>
+            <div
+                class="mx-auto"
+                x-data="{
+                numbers: retrieveNumbers(),
+                clear() {
+                    while (this.numbers > 0) {
+                        this.numbers.pop();
+                    }
+                }
+            }"
+            >
+                <!-- Card -->
+                <div class="mx-auto text-center mb-3">
+                    <!-- Header -->
+                    <div
+                        class="grid grid-cols-5 text-2xl py-2 bg-gray-700 text-white font-medium"
+                    >
+                        <p>B</p>
+                        <p>I</p>
+                        <p>N</p>
+                        <p>G</p>
+                        <p>O</p>
+                    </div>
+                    <!-- Numbers -->
+                    <div class="grid grid-cols-5">
+                        <template x-for="num in numbers" class="w-full">
+                            <div
+                                class="text-xl w-[20vw] h-20 flex items-center justify-center border-2"
+                            >
+                                <button
+                                    onClick="toggleNumber(this)"
+                                    data-toggled="false"
+                                    type="button"
+                                    x-text="num"
+                                ></button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <!-- Generate Button -->
+                <button
+                    class="bg-gray-700 text-[#F2F2F2] px-3 py-1 rounded-md mx-auto block"
+                    x-on:click="numbers = generateNewCard()"
+                >
+                    New Card
+                </button>
+            </div>
+        </div>
+        <!-- Numbers Generator - temporarily disabled -->
+        <div
+            class="shadow-md w-11/12 py-3 disabled"
+            x-show="choice == 'none'"
+        ></div>
     </body>
+    <script src="script.js"></script>
+    <script>
+        // document.addEventListener("alpine:init", () => {
+        //     window["Alpine"].data("numbers", () => ({
+        //         numbers: retrieveNumbers(),
+        //     }));
+        // });
+        // console.log(retrieveNumbers());
+    </script>
 </html>
