@@ -16,9 +16,12 @@
         x-data="{ choice: 'none' }"
     >
         <!-- Choice Selection -->
-        <div class="shadow-md w-11/12 py-3" x-show="choice == 'none'">
+        <div
+            class="shadow-md w-11/12 py-10 lg:w-2/3 xl:w-2/5"
+            x-show="choice == 'none'"
+        >
             <h1 class="text-center text-3xl mb-4">Bingo Generator</h1>
-            <div class="w-11/12 flex justify-around mx-auto">
+            <div class="w-11/12 flex justify-center gap-4 mx-auto">
                 <button
                     class="block text-center bg-blue-600 text-white px-3 py-1 rounded-md hover:opacity-80"
                     @click="() => {
@@ -38,7 +41,10 @@
             </div>
         </div>
         <!-- Card Generator -->
-        <div class="shadow-md w-screen py-3" x-show="choice == 'card'">
+        <div
+            class="shadow-md w-screen py-3 lg:w-5/6 xl:w-2/3"
+            x-show="choice == 'card'"
+        >
             <h2 class="text-center text-2xl mb-3 font-medium">
                 Generate Cards
             </h2>
@@ -69,7 +75,7 @@
                     <div class="grid grid-cols-5">
                         <template x-for="num in numbers" class="w-full">
                             <div
-                                class="text-xl w-[20vw] h-20 flex items-center justify-center border-2"
+                                class="text-xl w-[20vw] lg:w-[16.66vw] xl:w-[13.3333334vw] h-20 flex items-center justify-center border-2"
                             >
                                 <button
                                     onClick="toggleNumber(this)"
@@ -93,16 +99,8 @@
         <!-- Numbers Generator - temporarily disabled -->
         <div
             class="shadow-md w-11/12 py-3 disabled"
-            x-show="choice == 'none'"
+            x-show="choice == 'numbers'"
         ></div>
     </body>
     <script src="script.js"></script>
-    <script>
-        // document.addEventListener("alpine:init", () => {
-        //     window["Alpine"].data("numbers", () => ({
-        //         numbers: retrieveNumbers(),
-        //     }));
-        // });
-        // console.log(retrieveNumbers());
-    </script>
 </html>
